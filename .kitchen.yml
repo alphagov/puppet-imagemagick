@@ -1,0 +1,22 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: puppet_apply
+  require_chef_for_busser: false
+  manifests_path: .
+  modules_path: ../
+  custom_pre_apply_command: "mv /tmp/kitchen/modules/puppet-imagemagick /tmp/kitchen/modules/imagemagick"
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    provisioner:
+      manifest: site.pp
